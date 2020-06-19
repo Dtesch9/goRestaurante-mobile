@@ -1,3 +1,5 @@
+require('react-native').unstable_enableLogBox();
+
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR';
 
