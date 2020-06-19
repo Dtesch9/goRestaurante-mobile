@@ -59,13 +59,16 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     async function loadFoods(): Promise<void> {
-      api
-        .get('foods', {
-          params: { id: selectedCategory },
-        })
-        .then(response => {
-          setFoods(response.data);
-        });
+      const response = await api.get<Omit<Food, 'formattedPrice'>[]>('foods', {
+        params: { id: selectedCategory },
+      });
+
+      const data = response.data.map(food => ({
+        ...food,
+        formattedPrice: formatValue(food.price),
+      }));
+
+      setFoods(data);
     }
 
     loadFoods();
