@@ -60,7 +60,10 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     async function loadFoods(): Promise<void> {
       const response = await api.get<Omit<Food, 'formattedPrice'>[]>('foods', {
-        params: { id: selectedCategory, name: searchValue || undefined },
+        params: {
+          category_like: selectedCategory,
+          name_like: searchValue || undefined,
+        },
       });
 
       const data = response.data.map(food => ({
